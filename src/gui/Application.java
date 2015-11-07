@@ -2,19 +2,14 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 public class Application {
 	private final static String WINDOW_LABEL = "HopfieldThermalFaces";
-	private final static String RUN_LABEL = "Run";
 
-	private final JPanel panel = new JPanel();
+	private MenuPanel menuPanel;
+	private ImagePanel imagePanel;
 	private JFrame frame;
 
 	public static void main(String[] args) {
@@ -42,7 +37,10 @@ public class Application {
 		frame = new JFrame(WINDOW_LABEL);
 		frame.setBounds(0, 0, 800, 680);
 		frame.getContentPane().setLayout(new BorderLayout());
-		frame.add(panel);
+		imagePanel = new ImagePanel();
+		frame.add(imagePanel, BorderLayout.CENTER);
+		menuPanel = new MenuPanel(imagePanel);
+		frame.add(menuPanel, BorderLayout.SOUTH);
 	}
 
 }
