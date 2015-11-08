@@ -6,7 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 public class Application {
-	private final static String WINDOW_LABEL = "HopfieldThermalFaces";
+	private final static String WINDOW_LABEL = "SOMThermalFaces";
 
 	private MenuPanel menuPanel;
 	private ImagePanel imagePanel;
