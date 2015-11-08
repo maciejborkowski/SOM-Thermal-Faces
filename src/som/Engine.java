@@ -4,8 +4,12 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.apache.log4j.Logger;
 import org.openimaj.image.FImage;
 import org.openimaj.image.ImageUtilities;
 
@@ -27,13 +31,20 @@ public class Engine {
 		float mexicanHatParam = options.getMexicanHatParam();
 
 		while (learningRate > 0.0) {
+			Logger.getRootLogger().debug("Starting for learning rate = " + learningRate);
 			Collections.shuffle(images);
+			Map<Point, float[]> winnerImageMap = new HashMap<>();
 			for (float[] image : images) {
 				Point winner = neuronNet.findWinner(image);
-				neuronNet.applyGrossbergRule(learningRate, mexicanHatParam, winner, image);
+				winnerImageMap.put(winner, image);
 			}
-			learningRate -= 0.1;
-			mexicanHatParam -= 0.1;
+			for (Entry<Point, float[]> entry : winnerImageMap.entrySet()) {
+				neuronNet.applyGrossbergRule(learningRate, mexicanHatParam, entry.getKey(), entry.getValue());
+			}
+
+			Logger.getRootLogger().debug("Done for learning rate = " + learningRate);
+			learningRate -= 0.25;
+			mexicanHatParam -= 0.25;
 		}
 	}
 
@@ -41,14 +52,25 @@ public class Engine {
 		float[] image = ImageLoader.loadFile(imageFile);
 		normalize(image);
 		float[][] output = neuronNet.retrieve(image);
-		float[][] converted = new float[output.length][output[0].length];
-		for (int i = 0; i < output.length; i++) {
-			for (int j = 0; j < output[i].length; j++) {
-				converted[i][j] = (float) output[i][j];
+		// makePrintable(output);
+		FImage retrieved = new FImage(output);
+		return ImageUtilities.createBufferedImage(retrieved);
+	}
+
+	private void makePrintable(float[][] output) {
+		float max = Float.MIN_VALUE;
+		for (float[] row : output) {
+			for (float value : row) {
+				if (max < value) {
+					max = value;
+				}
 			}
 		}
-		FImage retrieved = new FImage(converted);
-		return ImageUtilities.createBufferedImage(retrieved);
+		for (float[] row : output) {
+			for (int i = 0; i < row.length; i++) {
+				row[i] /= max;
+			}
+		}
 	}
 
 	private void normalize(List<float[]> images) {
@@ -58,12 +80,13 @@ public class Engine {
 	}
 
 	private void normalize(float[] image) {
-		float sum = 0;
+		float divider = 0;
 		for (float value : image) {
-			sum += value;
+			divider += (value * value);
 		}
+		divider = (float) Math.sqrt(new Float(divider).doubleValue());
 		for (int i = 0; i < image.length; i++) {
-			image[i] /= sum;
+			image[i] /= divider;
 		}
 	}
 }

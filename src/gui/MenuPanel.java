@@ -54,8 +54,8 @@ public class MenuPanel extends JPanel {
 				EngineOptions options = new EngineOptions();
 				String pictures = "pictures/few";
 				options.setPictures(pictures);
-				options.setLayerX(128);
-				options.setLayerY(128);
+				options.setLayerX(96);
+				options.setLayerY(96);
 				options.setLearningRate(1);
 				options.setMexicanHatParam(1);
 				engine = new Engine(options);

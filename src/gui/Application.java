@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import org.apache.log4j.BasicConfigurator;
+
 public class Application {
 	private final static String WINDOW_LABEL = "SOMThermalFaces";
 
@@ -13,6 +15,7 @@ public class Application {
 	private JFrame frame;
 
 	public static void main(String[] args) {
+		BasicConfigurator.configure();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

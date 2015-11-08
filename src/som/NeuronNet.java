@@ -3,10 +3,7 @@ package som;
 import java.awt.Point;
 import java.util.Random;
 
-import org.apache.commons.math3.ml.distance.EuclideanDistance;
-
 public class NeuronNet {
-	private final EuclideanDistance euclideanDistance = new EuclideanDistance();
 	private final Random random = new Random();
 	private float[][] neurons;
 	private float[][][] weights;
@@ -18,12 +15,13 @@ public class NeuronNet {
 
 	public Point findWinner(float[] input) {
 		Point winner = new Point();
-		float max = Float.MIN_VALUE;
+		float min = Float.MAX_VALUE;
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = 0; j < weights[i].length; j++) {
-				float output = calculateOutput(weights[i][j], input);
-				if (max < output) {
-					max = output;
+				// float output = calculateOutput(weights[i][j], input);
+				float output = calculateEuclideanDistance(weights[i][j], input);
+				if (min > output) {
+					min = output;
 					winner.x = i;
 					winner.y = j;
 				}
@@ -46,12 +44,22 @@ public class NeuronNet {
 	public float[][] retrieve(float[] input) {
 		for (int i = 0; i < neurons.length; i++) {
 			for (int j = 0; j < neurons[i].length; j++) {
+				normalize(weights[i][j]);
 				neurons[i][j] = calculateOutput(weights[i][j], input);
-				// neurons[i][j] = euclideanDistance.compute(weights[i][j],
-				// input);
 			}
 		}
 		return neurons;
+	}
+
+	private void normalize(float[] image) {
+		float divider = 0;
+		for (float value : image) {
+			divider += (value * value);
+		}
+		divider = (float) Math.sqrt(new Float(divider).doubleValue());
+		for (int i = 0; i < image.length; i++) {
+			image[i] /= divider;
+		}
 	}
 
 	private float calculateOutput(float[] weights, float[] input) {
@@ -60,6 +68,15 @@ public class NeuronNet {
 			sum += weights[i] * input[i];
 		}
 		return sum;
+	}
+
+	private float calculateEuclideanDistance(float[] weights, float[] input) {
+		float result = 0.0f;
+		for (int i = 0; i < weights.length; i++) {
+			result += Math.pow(weights[i] - input[i], 2);
+		}
+		result = (float) Math.sqrt(new Float(result).doubleValue());
+		return result;
 	}
 
 	private float mexicanHat(Point winner, int x, int y, float a) {
@@ -82,7 +99,7 @@ public class NeuronNet {
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = 0; j < weights[i].length; j++) {
 				for (int k = 0; k < weights[i][j].length; k++) {
-					weights[i][j][k] = random.nextFloat();
+					weights[i][j][k] = random.nextFloat() * 0.001f;
 				}
 			}
 		}
