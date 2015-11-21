@@ -54,13 +54,17 @@ public class MenuPanel extends JPanel {
 				EngineOptions options = new EngineOptions();
 				String pictures = "pictures/few";
 				options.setPictures(pictures);
-				options.setLayerX(96);
-				options.setLayerY(96);
-				options.setLearningRate(1);
-				options.setMexicanHatParam(1);
+				options.setLayerX(10);
+				options.setLayerY(10);
+				options.setLearningRateFrom(1.0f);
+				options.setLearningRateTo(0.2f);
+				options.setMexicanHatParamFrom(1.0f);
+				options.setMexicanHatParamTo(10.0f);
+				options.setSteps(400);
 				engine = new Engine(options);
 				engine.learn();
 				imageButton.setEnabled(true);
+				learnButton.setEnabled(false);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

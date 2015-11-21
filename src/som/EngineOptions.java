@@ -2,10 +2,13 @@ package som;
 
 public class EngineOptions {
 	private String pictures;
-	private float learningRate;
-	private float mexicanHatParam;
+	private float learningRateFrom;
+	private float learningRateTo;
+	private float mexicanHatParamTo;
+	private float mexicanHatParamFrom;
 	private int layerX;
 	private int layerY;
+	private int steps;
 
 	public String getPictures() {
 		return pictures;
@@ -13,22 +16,6 @@ public class EngineOptions {
 
 	public void setPictures(String pictures) {
 		this.pictures = pictures;
-	}
-
-	public float getLearningRate() {
-		return learningRate;
-	}
-
-	public void setLearningRate(float learningRate) {
-		this.learningRate = learningRate;
-	}
-
-	public float getMexicanHatParam() {
-		return mexicanHatParam;
-	}
-
-	public void setMexicanHatParam(float mexicanHatParam) {
-		this.mexicanHatParam = mexicanHatParam;
 	}
 
 	public int getLayerX() {
@@ -46,4 +33,45 @@ public class EngineOptions {
 	public void setLayerY(int layerY) {
 		this.layerY = layerY;
 	}
+
+	public int getSteps() {
+		return steps;
+	}
+
+	public void setSteps(int steps) {
+		this.steps = steps;
+	}
+
+	public float getMexicanHatParamTo() {
+		return mexicanHatParamTo;
+	}
+
+	public void setMexicanHatParamTo(float mexicanHatParamTo) {
+		this.mexicanHatParamTo = mexicanHatParamTo;
+	}
+
+	public float getMexicanHatParamFrom() {
+		return mexicanHatParamFrom;
+	}
+
+	public void setMexicanHatParamFrom(float mexicanHatParamFrom) {
+		this.mexicanHatParamFrom = mexicanHatParamFrom;
+	}
+
+	public float getLearningRateTo() {
+		return learningRateTo;
+	}
+
+	public void setLearningRateTo(float learningRateTo) {
+		this.learningRateTo = learningRateTo;
+	}
+
+	public float getLearningRateFrom() {
+		return learningRateFrom;
+	}
+
+	public void setLearningRateFrom(float learningRateFrom) {
+		this.learningRateFrom = learningRateFrom;
+	}
+
 }

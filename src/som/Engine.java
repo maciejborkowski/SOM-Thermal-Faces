@@ -27,24 +27,28 @@ public class Engine {
 	}
 
 	public void learn() {
-		float learningRate = options.getLearningRate();
-		float mexicanHatParam = options.getMexicanHatParam();
+		float learningRate;
+		float mexicanHatParam = options.getMexicanHatParamTo();
+		int steps = options.getSteps();
 
-		while (learningRate > 0.0) {
-			Logger.getRootLogger().debug("Starting for learning rate = " + learningRate);
+		for (int i = 0; i < steps; i++) {
+			learningRate = options.getLearningRateFrom()
+					+ (options.getLearningRateTo() - options.getLearningRateFrom()) * i / steps;
+			mexicanHatParam = options.getMexicanHatParamFrom()
+					+ (options.getMexicanHatParamTo() - options.getMexicanHatParamFrom()) * i / steps;
+			Logger.getRootLogger().debug("Starting step " + (i + 1) + "/" + steps + ", learning rate = " + learningRate
+					+ ", mexican = " + mexicanHatParam);
 			Collections.shuffle(images);
 			Map<Point, float[]> winnerImageMap = new HashMap<>();
 			for (float[] image : images) {
-				Point winner = neuronNet.findWinner(image);
+				Point winner = neuronNet.findWinner(image, winnerImageMap.keySet());
 				winnerImageMap.put(winner, image);
 			}
 			for (Entry<Point, float[]> entry : winnerImageMap.entrySet()) {
 				neuronNet.applyGrossbergRule(learningRate, mexicanHatParam, entry.getKey(), entry.getValue());
 			}
-
-			Logger.getRootLogger().debug("Done for learning rate = " + learningRate);
-			learningRate -= 0.25;
-			mexicanHatParam -= 0.25;
+			// Logger.getRootLogger().debug("Done step " + (i + 1) + "/" +
+			// steps);
 		}
 	}
 
@@ -52,15 +56,19 @@ public class Engine {
 		float[] image = ImageLoader.loadFile(imageFile);
 		normalize(image);
 		float[][] output = neuronNet.retrieve(image);
-		// makePrintable(output);
+		makePrintable(output);
 		FImage retrieved = new FImage(output);
 		return ImageUtilities.createBufferedImage(retrieved);
 	}
 
 	private void makePrintable(float[][] output) {
 		float max = Float.MIN_VALUE;
+		float min = Float.MAX_VALUE;
 		for (float[] row : output) {
 			for (float value : row) {
+				if (min > value) {
+					min = value;
+				}
 				if (max < value) {
 					max = value;
 				}
@@ -68,7 +76,13 @@ public class Engine {
 		}
 		for (float[] row : output) {
 			for (int i = 0; i < row.length; i++) {
-				row[i] /= max;
+				row[i] -= min;
+			}
+		}
+		max -= min;
+		for (float[] row : output) {
+			for (int i = 0; i < row.length; i++) {
+				row[i] = row[i] / max;
 			}
 		}
 	}
