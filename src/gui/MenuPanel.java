@@ -57,9 +57,9 @@ public class MenuPanel extends JPanel {
 				options.setLayerX(10);
 				options.setLayerY(10);
 				options.setLearningRateFrom(1.0f);
-				options.setLearningRateTo(0.2f);
+				options.setLearningRateTo(0.1f);
 				options.setMexicanHatParamFrom(1.0f);
-				options.setMexicanHatParamTo(10.0f);
+				options.setMexicanHatParamTo(5.0f);
 				options.setSteps(400);
 				engine = new Engine(options);
 				engine.learn();
