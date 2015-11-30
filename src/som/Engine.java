@@ -52,8 +52,7 @@ public class Engine {
 		}
 	}
 
-	public BufferedImage retrieve(File imageFile) {
-		float[] image = ImageLoader.loadFile(imageFile);
+	public BufferedImage retrieve(float[] image) {
 		normalize(image);
 		float[][] output = neuronNet.retrieve(image);
 		makePrintable(output);
@@ -65,24 +64,33 @@ public class Engine {
 		float max = Float.MIN_VALUE;
 		float min = Float.MAX_VALUE;
 		for (float[] row : output) {
-			for (float value : row) {
-				if (min > value) {
-					min = value;
+			for (int i = 0; i < row.length; i++) {
+				if (min > row[i]) {
+					min = row[i];
 				}
-				if (max < value) {
-					max = value;
+				if (max < row[i]) {
+					max = row[i];
 				}
 			}
 		}
 		for (float[] row : output) {
 			for (int i = 0; i < row.length; i++) {
 				row[i] -= min;
+				if (row[i] < 0.0f) {
+					row[i] = 0.0f;
+				}
 			}
 		}
 		max -= min;
 		for (float[] row : output) {
 			for (int i = 0; i < row.length; i++) {
 				row[i] = row[i] / max;
+				if (row[i] < 0.99f) {
+					row[i] -= 0.5f;
+					if (row[i] < 0.0f) {
+						row[i] = 0.0f;
+					}
+				}
 			}
 		}
 	}

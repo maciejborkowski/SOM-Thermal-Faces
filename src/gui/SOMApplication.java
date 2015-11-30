@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 
 import org.apache.log4j.BasicConfigurator;
 
-public class Application {
-	private final static String WINDOW_LABEL = "SOMThermalFaces";
+public class SOMApplication {
+	private final static String WINDOW_LABEL = "SOM Thermal Faces";
 
 	private MenuPanel menuPanel;
 	private ImagePanel imagePanel;
@@ -19,7 +19,7 @@ public class Application {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Application window = new Application();
+					SOMApplication window = new SOMApplication();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -28,7 +28,7 @@ public class Application {
 		});
 	}
 
-	public Application() {
+	public SOMApplication() {
 		initializeApplication();
 	}
 
@@ -38,7 +38,7 @@ public class Application {
 
 	private void initFrame() {
 		frame = new JFrame(WINDOW_LABEL);
-		frame.setBounds(0, 0, 800, 680);
+		frame.setBounds(0, 0, 600, 420);
 		frame.getContentPane().setLayout(new BorderLayout());
 		imagePanel = new ImagePanel();
 		frame.add(imagePanel, BorderLayout.CENTER);

@@ -44,8 +44,9 @@ public class ImageLoader {
 		float[] any = images.iterator().next();
 		int length = any.length;
 		for (float[] image : images) {
-			if (image.length != length)
+			if (image.length != length) {
 				throw new Exception("Images have different sizes");
+			}
 		}
 	}
 
