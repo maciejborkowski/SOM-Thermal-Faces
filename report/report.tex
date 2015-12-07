@@ -1,0 +1,85 @@
+\RequirePackage{ifpdf}
+	\ifpdf	
+		\documentclass[pdftex]{article}
+		\RequirePackage{color} 
+	\else
+		\documentclass[10pt]{article} 
+		\usepackage{nohyperref}		
+	\fi
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[left=1.5cm, top=1.3cm, textwidth=18.6cm, textheight=27cm]{geometry}
+\geometry{paper=a4paper}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{abstract}
+\usepackage{fancyhdr}
+\usepackage[procnames]{listings}
+
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{0,0,113}
+\definecolor{red}{RGB}{160,0,0}
+\definecolor{green}{RGB}{0,150,0}
+
+\lhead{} \chead{} \rhead{}
+\lfoot{\emph{Softcomputing, 2015/2016}} \cfoot{} \rfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\pagestyle{fancy}
+
+\pretitle{\includegraphics[width=.55\textwidth]{eka-en.png}\par\vspace{1ex}\begin{center}\huge}
+
+\posttitle{\par\end{center}}
+\preauthor{\begin{center} \large \begin{tabular}[t]{c}}
+\postauthor{\end{tabular}\par\end{center}}
+\predate{} \postdate{}
+\date{}
+
+\newcommand{\eng}[1]{(ang.\ \emph{#1})}
+
+\title{\vspace{10ex}Thermal pictures of human faces recognition by \\ Kohonen Neural Network \vspace{32ex}}
+
+\author{Maciej Borkowski\\ 195968@student.pwr.edu.pl}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\clearpage
+\section{Kohonen Neural Network theory}
+
+\section{Implementation}
+\subsection{Learning}
+
+\subsection{Variables}
+
+\subsection{Retrieval}
+
+\subsection{GUI}
+
+\section{Learning and testing data sets}
+\subsection{Learning data}
+
+\subsection{Test data}
+
+\section{Recognition results}
+\subsection{No change}
+
+\subsection{Temperature}
+\subsubsection{Global}
+
+\subsubsection{Partial}
+
+\subsection{Head rotation}
+
+\subsection{Hidden faces}
+
+\subsection{Mixed changes}
+\subsubsection{Winter hat and increased temperature}
+
+\subsubsection{Rotated with increased temperature}
+
+\section{Conclusion}
+
+\end{document}
