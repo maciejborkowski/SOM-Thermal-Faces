@@ -149,9 +149,15 @@ public class MenuPanel extends JPanel {
 				try {
 					float[] imagePixels = ImageLoader.loadFile(file);
 					float chillVal = Float.parseFloat(chill.getText());
+					float heatVal = Float.parseFloat(heat.getText());
 					BufferedImage img = ImageIO.read(file);
 					if (chillVal > 0f && chillVal <= 100f) {
 						Distortion.chillDownImage(imagePixels, 100f - chillVal);
+						FImage fimage = new FImage(imagePixels, img.getWidth(), img.getHeight());
+						img = ImageUtilities.createBufferedImage(fimage);
+					}
+					if (heatVal > 0f && heatVal <= 100f) {
+						Distortion.heatUpImage(imagePixels, 100f - heatVal);
 						FImage fimage = new FImage(imagePixels, img.getWidth(), img.getHeight());
 						img = ImageUtilities.createBufferedImage(fimage);
 					}

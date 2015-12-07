@@ -19,4 +19,11 @@ public class Distortion {
 		}
 		System.out.println();
 	}
+
+	public static void heatUpImage(float[] image, float percent) {
+		for (int i = 0; i < image.length; i++) {
+			if (image[i] > 0.10f)
+				image[i] += (1.0f - image[i]) * percent / 100f;
+		}
+	}
 }
