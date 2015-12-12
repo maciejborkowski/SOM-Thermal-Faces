@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.Set;
 
 public class NeuronNet {
-	private static final float TWO_PI = (float) (2.0 * Math.PI);
 	private final Random random = new Random();
 	private float[][] neurons;
 	private float[][][] weights;
@@ -68,7 +67,6 @@ public class NeuronNet {
 		for (int i = 0; i < weights.length; i++) {
 			result += Math.pow(weights[i] - input[i], 2);
 		}
-		// result = (float) Math.sqrt(new Float(result).doubleValue());
 		return result;
 	}
 

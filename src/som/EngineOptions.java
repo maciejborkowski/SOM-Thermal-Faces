@@ -8,7 +8,7 @@ public class EngineOptions {
 	private float mexicanHatParamFrom;
 	private int layerX;
 	private int layerY;
-	private int steps;
+	private int loops;
 
 	public String getPictures() {
 		return pictures;
@@ -34,12 +34,12 @@ public class EngineOptions {
 		this.layerY = layerY;
 	}
 
-	public int getSteps() {
-		return steps;
+	public int getLoops() {
+		return loops;
 	}
 
-	public void setSteps(int steps) {
-		this.steps = steps;
+	public void setLoops(int loops) {
+		this.loops = loops;
 	}
 
 	public float getMexicanHatParamTo() {

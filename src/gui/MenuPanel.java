@@ -44,7 +44,7 @@ public class MenuPanel extends JPanel {
 	private JTextField learningRateTo = new JTextField("0.1");
 	private JTextField mexicanHatParamFrom = new JTextField("1.0");
 	private JTextField mexicanHatParamTo = new JTextField("5.0");
-	private JTextField steps = new JTextField("400");
+	private JTextField loops = new JTextField("400");
 	private JTextField chill = new JTextField("0");
 	private JTextField heat = new JTextField("0");
 
@@ -70,8 +70,8 @@ public class MenuPanel extends JPanel {
 		addLabel("MexicanHat To", constraints);
 		addComponent(mexicanHatParamTo, constraints);
 		newLine(constraints);
-		addLabel("Steps", constraints);
-		addComponent(steps, constraints);
+		addLabel("Loops", constraints);
+		addComponent(loops, constraints);
 		newLine(constraints);
 		addLabel("Chill", constraints);
 		addComponent(chill, constraints);
@@ -129,7 +129,7 @@ public class MenuPanel extends JPanel {
 				options.setLearningRateTo(Float.parseFloat(learningRateTo.getText()));
 				options.setMexicanHatParamFrom(Float.parseFloat(mexicanHatParamFrom.getText()));
 				options.setMexicanHatParamTo(Float.parseFloat(mexicanHatParamTo.getText()));
-				options.setSteps(Integer.parseInt(steps.getText()));
+				options.setLoops(Integer.parseInt(loops.getText()));
 				engine = new Engine(options);
 				engine.learn();
 				imageButton.setEnabled(true);

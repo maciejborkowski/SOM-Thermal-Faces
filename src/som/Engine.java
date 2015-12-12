@@ -29,14 +29,14 @@ public class Engine {
 	public void learn() {
 		float learningRate;
 		float mexicanHatParam = options.getMexicanHatParamTo();
-		int steps = options.getSteps();
+		int loops = options.getLoops();
 
-		for (int i = 0; i < steps; i++) {
+		for (int i = 0; i < loops; i++) {
 			learningRate = options.getLearningRateFrom()
-					+ (options.getLearningRateTo() - options.getLearningRateFrom()) * i / steps;
+					+ (options.getLearningRateTo() - options.getLearningRateFrom()) * i / loops;
 			mexicanHatParam = options.getMexicanHatParamFrom()
-					+ (options.getMexicanHatParamTo() - options.getMexicanHatParamFrom()) * i / steps;
-			Logger.getRootLogger().debug("Starting step " + (i + 1) + "/" + steps + ", learning rate = " + learningRate
+					+ (options.getMexicanHatParamTo() - options.getMexicanHatParamFrom()) * i / loops;
+			Logger.getRootLogger().debug("Starting step " + (i + 1) + "/" + loops + ", learning rate = " + learningRate
 					+ ", mexican = " + mexicanHatParam);
 			Collections.shuffle(images);
 			Map<Point, float[]> winnerImageMap = new HashMap<>();
